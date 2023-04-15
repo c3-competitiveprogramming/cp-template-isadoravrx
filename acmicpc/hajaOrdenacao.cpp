@@ -1,18 +1,19 @@
 #include <iostream>
 #include <vector>
 using namespace std;
+void ordenador(int i);
 vector<vector<int>>jogo;
 
 
 void arrayOrdenado(int qcores){
     for(int i = 1; i <= qcores; i++ ){
-        ordenacao(i);
+        ordenador(i);
     }
     
 }
 
 
-void ordenacao(int arrayEscolhido){
+void ordenador(int arrayEscolhido){
     
     for(int i = 0; i < jogo[arrayEscolhido].size(); i++){
         for(int j = i; j >= 1; j--){
@@ -26,7 +27,7 @@ void ordenacao(int arrayEscolhido){
     }
 }
 
-bool isordened(vector<int>cartasOrdenadas){
+bool ordened(vector<int>cartasOrdenadas){
     for(int i = 1; i < cartasOrdenadas.size() - 1 ; i++){
         if(cartasOrdenadas[i] < cartasOrdenadas[i - 1]){
             return false;
@@ -53,10 +54,12 @@ int main(){
     vector<int>cartasOrdenadas;
     for(int i = 0; i < qblocos; i++){
         int linhaCor = jogo[0][i]; 
-        cartasOrdenadas.push_back(jogo[linhaCor].shift()); //retorna o primeiro elemento do vector, e depois apaga ele
+        
+        cartasOrdenadas.push_back(jogo[linhaCor][0]);
+        jogo[linhaCor].erase(jogo[linhaCor].begin());
     }
     
-    bool isordened = isordened(cartasOrdenadas);
+    bool isordened = ordened(cartasOrdenadas);
 
     if(isordened == true){
         cout << "Y" << endl;
