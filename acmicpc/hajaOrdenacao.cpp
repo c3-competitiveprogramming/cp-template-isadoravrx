@@ -15,9 +15,9 @@ void arrayOrdenado(int qcores){
 
 void ordenador(int arrayEscolhido){
     
-    for(int i = 0; i < jogo[arrayEscolhido].size(); i++){
+    for(int i = 1; i < jogo[arrayEscolhido].size(); i++){
         for(int j = i; j >= 1; j--){
-            if(jogo[arrayEscolhido][j-1] < jogo[arrayEscolhido][j]){
+            if(jogo[arrayEscolhido][j-1] > jogo[arrayEscolhido][j]){
                 int temp = jogo[arrayEscolhido][j-1];
                 jogo[arrayEscolhido][j-1] = jogo[arrayEscolhido][j];
                 jogo[arrayEscolhido][j] = temp;
@@ -40,7 +40,8 @@ bool ordened(vector<int>cartasOrdenadas){
 int main(){
     int qblocos, qcores;
     cin >> qblocos >> qcores;
-
+    jogo.resize(qcores + 1);
+    
     int tempQblocos = qblocos;
     while (tempQblocos--){
         int numcarta, corCarta;
