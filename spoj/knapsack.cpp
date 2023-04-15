@@ -9,7 +9,7 @@ int mem[2005][2005];
 int capacity, itens;
 
 int recursive(int i, int c){
-    if( i == itens || c < 0){   
+    if( i == itens || c < 0){   //quando c é menor que 0, era pra retornar menos infinito
         return 0;
     }
 
