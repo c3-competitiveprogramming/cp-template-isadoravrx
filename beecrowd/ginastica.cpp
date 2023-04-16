@@ -1,10 +1,9 @@
 #include <iostream>
 #include <cstring>
-
 using namespace std;
 
 int m, n;
-long long mem[100000][60];
+long long mem[60][100000];
 
 long long dp(int t, int k){
     if(t == 1 ){
@@ -15,7 +14,7 @@ long long dp(int t, int k){
         return mem[t][k];
     }
 
-    long cont = 0;
+    long long cont = 0;
 
     if(k < n){
         cont += dp(t-1, k+1);
@@ -42,7 +41,7 @@ int main(){
     }
 
 
-    cout << cont  % (1000000000 + 7) << endl;
+    cout << (cont %(1000000000 + 7)) << endl;
 
 }
 
