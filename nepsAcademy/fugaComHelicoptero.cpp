@@ -2,24 +2,46 @@
 using namespace std;
 
 int main(){
-    int h,p,f,d;
-    cin >> h >> p >> f >> d;
-    int distanciaf;
-    int distanciap;
-    if(d == -1){
-        distanciaf = f - h;
-        distanciap = p - h;
-       
-    }else{
-        distanciaf = h - f;
-        distanciap = h - p;
+    int helicoptero,policial,fugitivo,d;
+    cin >> helicoptero >> policial >> fugitivo >> d;
+    bool preso = false;
+
         
+    if(d == -1){
+        while(fugitivo != helicoptero){
+            if(fugitivo == policial){
+                preso = true;
+                break;
+            }
+            if(fugitivo == 0){
+                fugitivo = 15;
+            }else{
+                fugitivo--;
+            }
+            
+        }
+    }else{
+        while(fugitivo != helicoptero){
+            if(fugitivo == policial){
+                preso = true;
+                break;
+            }
+            if(fugitivo == 15){
+                fugitivo = 0;
+            }else{
+                fugitivo++;
+            }
+            
+        }
     }
 
-    if(distanciaf < distanciap){
-            cout << "S" << endl;
+    if(preso == false){
+        cout << "S" << endl;
     }else{
-            cout << "N" << endl;
+        cout << "N" << endl;
     }
+    
+
+    return 0;
 
 }
