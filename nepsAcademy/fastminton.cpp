@@ -10,7 +10,7 @@ int main(){
     int playerSacando = 0; // 0 é o left e 1 é o right
     int ultimaApontuar = -1;
 
-    getline(cin,score); //lendo o input
+    cin >> score; //lendo o input
     int comprimentoString = score.size();
     
     for(int i = 0; i < comprimentoString; i++){
