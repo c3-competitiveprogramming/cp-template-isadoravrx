@@ -38,12 +38,12 @@ int main(){
     somaatual = 0;
     if(isMagic == true){
         
-        for(int m = 0; m < n; m++){ // verificando os verticais
+        for(int m = 0; m < n; m++){ // verificando os verticais (tá errado???)
             for(int p = 0; p < n; p++){
-                somaatual = numbers[p][m];
+                somaatual += numbers[p][m]; 
             }
             if(somaatual != soma){
-                isMagic = false;
+                isMagic = false; 
                 break;
             }
             somaatual = 0;
