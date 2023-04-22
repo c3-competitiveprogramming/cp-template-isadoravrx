@@ -36,7 +36,7 @@ int main(){
     }    
 
     somaatual = 0;
-    if(somaatual == true){
+    if(isMagic == true){
         
         for(int m = 0; m < n; m++){ // verificando os verticais
             for(int p = 0; p < n; p++){
