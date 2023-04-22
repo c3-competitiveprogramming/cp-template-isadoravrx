@@ -40,7 +40,7 @@ bool ordened(vector<int>cartasOrdenadas){
 int main(){
     int qblocos, qcores;
     cin >> qblocos >> qcores;
-    jogo.resize(qcores + 1);
+    jogo.resize(qcores + 1); //resize vai colocar qcores + 1 linhas
     
     int tempQblocos = qblocos;
     while (tempQblocos--){
@@ -57,7 +57,7 @@ int main(){
         int linhaCor = jogo[0][i]; 
         
         cartasOrdenadas.push_back(jogo[linhaCor][0]);
-        jogo[linhaCor].erase(jogo[linhaCor].begin());
+        jogo[linhaCor].erase(jogo[linhaCor].begin()); // apaga um elemento do vector, e dá um arrumada pra ele não ficar com buraco
     }
     
     bool isordened = ordened(cartasOrdenadas);
