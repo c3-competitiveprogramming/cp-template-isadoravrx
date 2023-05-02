@@ -1,23 +1,17 @@
 #include <iostream>
+#include <math.h>
 using namespace std;
 
 int main(){
     int n,k,l,c,d,p, nl,np;
     cin >> n >> k >> l >> c >> d >> p >> nl >> np;
-    int qcoposcombebida = (k * l) / nl ;
-    int qcoposcomlimao = (d * c);
-    int qcoposcomsal = p / np;
-    int qbrindesonlybebida = qcoposcombebida / n;
-    int qbrindesonlylimao = qcoposcomlimao / n;
-    int qbrindesonlysal = qcoposcomsal / n;
+    int qbrindesonlybebida = ((k * l) / nl)/n;
+    int qbrindesonlylimao = (d * c)/n;
+    int qbrindesonlysal = (p / np)/n;
     
-    if(qbrindesonlybebida < qbrindesonlylimao && qbrindesonlybebida < qbrindesonlysal){
-        cout << qbrindesonlybebida << endl;
-    }else if(qbrindesonlylimao < qbrindesonlybebida && qbrindesonlylimao < qbrindesonlysal){
-        cout << qbrindesonlylimao << endl;
-    }else if(qbrindesonlysal < qbrindesonlybebida && qbrindesonlysal < qbrindesonlylimao){
-        cout << qbrindesonlysal << endl;
-    }
+    int menor = min(qbrindesonlybebida,qbrindesonlylimao);
+    menor = min(menor, qbrindesonlysal);
+    cout << menor << endl;
 
     return 0;
 
