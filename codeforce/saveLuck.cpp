@@ -17,7 +17,9 @@ int main(){
         }else{
             break;
         }
-    }   
+    }
+    
+       
 
     cout << cont << endl;
 }

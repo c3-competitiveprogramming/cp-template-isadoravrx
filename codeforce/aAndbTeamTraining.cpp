@@ -1,47 +1,28 @@
 #include <iostream>
+#include <math.h>
 using namespace std;
-
-int calculatinga(int exp, int nov){
-    int cont = 0;
-    while(true){
-        exp = exp - 2;
-        nov = nov--;
-        if(exp < 0 || nov < 0){
-            break;
-        }
-
-        cont++;
-    }
-    return cont;
-}
-
-int calculatingb(int exp, int nov){
-    int cont = 0;
-    while(true){
-        exp--;
-        nov = nov - 2;
-        if(exp < 0 || nov < 0){
-            break;
-        }
-
-        cont++;
-    }
-    return cont;
-}
 
 int main(){
     int exp, nov;
     cin >> exp >> nov;
-    int qgruposa, qgruposb;
+    int counter = 0;
+    while(true){
+        if(exp < nov){
+            exp--;
+            nov = nov - 2;
+        }else{  //exp == nov entra aqui
+            exp = exp - 2;
+            nov--;
+        }
+        if(exp < 0 || nov < 0){
+            break;
+        }
 
-    qgruposa = calculatinga(exp,nov);
-    qgruposb = calculatingb(exp,nov);
+        counter++;
+    }    
 
-    if(qgruposa > qgruposb){
-        cout << qgruposa << endl;
-    }else{
-        cout << qgruposb << endl;
-    }
+
+    cout << counter << endl;
 
     return 0;
 }
