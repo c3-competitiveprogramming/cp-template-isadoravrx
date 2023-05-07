@@ -4,6 +4,7 @@ using namespace std;
 vector<long>elements;
 
 int menorIndexRepetidos(int mid){
+
     if(elements[mid-1] < elements[mid]){
         return mid;
     }
@@ -17,6 +18,9 @@ int binarysearch(long element){
     int mid = (low + high) / 2;
     while(low <= high){
         if(elements[mid] == element){ //achou
+            if(mid == 0){ //se é o primeiro, não tem como ter elemento repetido antes dele
+                return mid;
+            }
             int menorIndexSeForrepetido = menorIndexRepetidos(mid);
             return menorIndexSeForrepetido;
         }
@@ -50,4 +54,6 @@ int main(){
         int position = binarysearch(element);
         printf("%d\n",position);
     }
+
+    return 0;
 }
