@@ -17,8 +17,26 @@ void ordenando( int limitLeft, int limitRight){ //mudar para quick sort, esse t√
     sort(auxpages.begin() + limitLeft, auxpages.begin() + limitRight + 1);
 }
 
-int indexleftminimo(){
-    
+int indexleftmaximo(){
+    int max = 0;
+    for(int i = 0; i < barreirasLeft.size(); i++){
+        if(barreirasLeft[i] > barreirasLeft[max]){
+            max = i;
+        }
+    }
+
+    return max;  
+}
+
+int indexrightmaximo(){
+    int max = 0;
+    for(int i = 0; i < barreirasRight.size(); i++){
+        if(barreirasRight[i] > barreirasRight[max]){
+            max = i;
+        }
+    }
+
+    return max;  
 }
 
 int main(){
@@ -43,9 +61,9 @@ int main(){
         indexs.push_back(indeximportante);
     }
 
-    int minLeft = indexleftminimo();
+    int maxLeft = indexleftmaximo();
     int maxRight = indexrightmaximo();
-    ordenando(minLeft,maxRight);
+    ordenando(maxLeft,maxRight);
 
 
     for(int i = 0; i < qordenacao;i++){
