@@ -5,7 +5,7 @@ using namespace std;
 int main(){
     long long n, divisions = 0;
     cin >> n;
-    for(long long i = 2; i<= sqrt(n); i++){
+    for(long long i = 2; i<= sqrt(n); i++){ // tem que colocar exceção quando for 1 ou 2, pois eles são primos
         if(n % i == 0){
             divisions++;    
         }
