@@ -10,7 +10,8 @@ vector<int>barreirasLeft;
 vector<int>barreirasRight;
 vector<int>indexs;
 
-void ordenando( int limitLeft, int limitRight){ //mudar para quick sort, esse tá muito devagar
+void ordenando(int limitLeft, int limitRight){ //mudar para quick sort, esse tá muito devagar
+    auxpages = pages;
     if(limitLeft == limitRight){
         return;
     }
@@ -25,7 +26,7 @@ int indexleftmaximo(){
         }
     }
 
-    return max;  
+    return barreirasLeft[max];  
 }
 
 int indexrightmaximo(){
@@ -36,7 +37,7 @@ int indexrightmaximo(){
         }
     }
 
-    return max;  
+    return barreirasRight[max];  
 }
 
 int main(){
@@ -51,7 +52,7 @@ int main(){
 
     int valorimportante , valorAgora;
     int tempqordenacao = qordenacao;
-    while(tempqordenacao-){
+    while(tempqordenacao--){
         cin >> limitLeft >> limitRight >> indeximportante;
         limitLeft--;
         limitRight--;
