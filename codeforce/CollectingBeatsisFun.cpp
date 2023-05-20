@@ -18,7 +18,7 @@ int main(){
                 continue;
             }
 
-            int position = (int) display[j]; //como passar de char para inteiro 
+            int position = display[j] - '0'; //como passar de char para inteiro 
             contParalelo[position - 1] = contParalelo[position - 1] + 1;
         }
         
@@ -35,4 +35,6 @@ int main(){
     }else{
         cout << "NO" << endl;
     }
+
+    return 0;
 }
