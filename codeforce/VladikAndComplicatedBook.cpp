@@ -4,40 +4,16 @@
 #include <algorithm>
 using namespace std;
 vector<int>pages;
-vector<int>auxpages;
 
-vector<int>barreirasLeft;
-vector<int>barreirasRight;
-vector<int>indexs;
-
-void ordenando(int limitLeft, int limitRight){ //mudar para quick sort, esse tá muito devagar
-    auxpages = pages;
-    if(limitLeft == limitRight){
-        return;
-    }
-    sort(auxpages.begin() + limitLeft, auxpages.begin() + limitRight + 1);
-}
-
-int indexleftminimo(){
-    int min = 0 ;
-    for(int i = 0; i < barreirasLeft.size(); i++){
-        if(barreirasLeft[i] < barreirasLeft[min]){
-            min = i;
+int qmenoresOrdenado(int limitLeft,int limitRight, int indeximportante){
+    int counter = 0;
+    for(int i = limitLeft; i <= limitRight; i++){
+        if(pages[i] < pages[indeximportante]){
+            counter++;
         }
     }
 
-    return barreirasLeft[min];  
-}
-
-int indexrightmaximo(){
-    int max = 0;
-    for(int i = 0; i < barreirasRight.size(); i++){
-        if(barreirasRight[i] > barreirasRight[max]){
-            max = i;
-        }
-    }
-
-    return barreirasRight[max];  
+    return counter;
 }
 
 int main(){
@@ -49,33 +25,26 @@ int main(){
         cin >> page;
         pages.push_back(page);
     }
-
-    int valorimportante , valorAgora;
-    int tempqordenacao = qordenacao;
-    while(tempqordenacao--){
+    int posicaoNova;
+    int qelementosantesleft, qelementosMenoresEntreFronteiras;
+   
+    while(qordenacao--){
         cin >> limitLeft >> limitRight >> indeximportante;
         limitLeft--;
         limitRight--;
         indeximportante--; //pois o index pra eles vai de 1 a n
-        barreirasLeft.push_back(limitLeft);
-        barreirasRight.push_back(limitRight);
-        indexs.push_back(indeximportante);
-    }
-
-    int minLeft = indexleftminimo();
-    int maxRight = indexrightmaximo();
-    ordenando(minLeft,maxRight);
-
-
-    for(int i = 0; i < qordenacao;i++){
-        valorimportante = pages[indeximportante];
-        valorAgora = auxpages[indeximportante];
-        
-        if(valorimportante == valorAgora){
+        if(indeximportante == 0){
+            qelementosantesleft = 0;
+        }else{
+            qelementosantesleft = limitLeft;
+        } 
+        qelementosMenoresEntreFronteiras = qmenoresOrdenado(limitLeft,limitRight,indeximportante);
+        posicaoNova = qelementosantesleft + qelementosMenoresEntreFronteiras;
+        if(posicaoNova == indeximportante){ //ou seja, ele nao mudou de lugar
             cout << "Yes" << endl;
         }else{
             cout << "No" << endl;
-        }   
+        }
     }
 
     return 0;
