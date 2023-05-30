@@ -14,29 +14,36 @@ int main(){
 
     int s = 1; //indica quando e a vez de sereja
     int sereja = 0,dima = 0;
-    while(!nums.empty()){  
+    vector<int>::iterator b;
+    vector<int>:: iterator e;
+    b = nums.begin();
+    e = nums.end() - 1;
+
+    while(b <= e){  
         if(s == 1){
-            if(nums[nums.begin()] > num[nums.end()]){
-                sereja += nums[nums.begin()];
-                nums.erase(nums.begin());
+            if(*b > *e){
+                sereja += *b;
+                b++; //vai para o prox elemento
             }else{
-                sereja += nums[nums.end()];
-                nums.erase(nums.end());
+                sereja += *e;
+                e--;
             }
 
             s = 0; 
         }else{
-            if(nums[nums.begin()] > num[nums.end()]){
-                dima += nums[nums.begin()];
-                nums.erase(nums.begin());
+            if(*b > *e){
+                dima += *b;
+                b++;
             }else{
-                dima += nums[nums.end()];
-                nums.erase(nums.end());
+                dima += *e;
+                e--;
             }
 
             s = 1;
         }
     }
 
+
     printf("%d %d\n", sereja, dima);
+    return 0;
 }
