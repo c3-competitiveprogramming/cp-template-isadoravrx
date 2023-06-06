@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 int main(){
@@ -7,26 +8,29 @@ int main(){
     cin >> n;
     
     vector<int>numbers;
+    int cont = 0;
+
     for(int i = 0; i < n; i++){
         int num;
         cin >> num;
         numbers.push_back(num);
-    }
+        
+    }        
 
-    int cont = 0;
-
+    sort(numbers.begin(), numbers.end());
     for(int i = 0; i < n; i++){
+
         bool isrepeated = false;
-        for(int j = 0; j < i; j++){
-            if(numbers[i] == numbers[j]){
+        if(i != 0){
+            if(numbers[i - 1] == numbers[i]){
                 isrepeated = true;
-                break;
-            }        
+            }
         }
+        
         if(isrepeated == false){
             cont++;
         }
     }
-
+    
     cout << cont << endl;
 }
