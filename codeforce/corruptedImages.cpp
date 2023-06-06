@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <vector>
 using namespace std;
 
@@ -9,18 +10,30 @@ int main(){
     while(testes--){
         int linhas, colunas;
         cin >> linhas >> colunas;
-        vector<vector<int>>mymatrix;
-        int value;
-        for(int i = 0; i < linhas; i++){ //armazenando a matriz
+        string value;
+        int qzerosborda = 0, qunsmeio = 0;
+
+        for(int i = 0; i < linhas; i++){ //verificando cada numero da matriz
+            cin >> value;
             for(int j = 0; j < colunas ; j++){
-                cin >> value;
-                mymatrix.push_back[linhas](value);
+                char number = value[j];
+                if(i == 0 || j == 0 || j == colunas - 1 || i == linhas - 1){ //verifica se ta na borda
+                    if(number == '0'){
+                        qzerosborda++;
+                    }
+                }else{
+                    if(number == '1'){
+                        qunsmeio++;
+                    }
+                }
             }
         }
 
-        int swaps = 0;
-        for(){
-
+        if(qunsmeio >= qzerosborda){
+            cout << qzerosborda << endl; 
+        }else{
+            cout << "-1" << endl;
         }
+        
     }
 }
