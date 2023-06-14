@@ -16,25 +16,32 @@ int main(){
     long long k;
     cin >> k;
     
-    bool achei = false;
+   
     int house1,house2;
-    for(int i = 0; i < n; i++){
-        for(int j = 0; j < n; j++){
-            if(i == j){
-                continue;
-            }if(nums[i] + nums[j] > k){
-                break;
-            }if(nums[i] + nums[j] == k){
-                achei = true;
-                house1 = nums[i];
-                house2 = nums[j];
-                break;
-            }
-        }
+    
+    int fixIndice = 0;
+    int low = 1, high = nums.size() - 1 , mid; 
 
-        if(achei == true){
+    while(true){
+        mid = (low + high) / 2;
+        
+
+        if(nums[fixIndice] + nums[mid] == k){
+            house1 = nums[fixIndice];
+            house2 = nums[mid];
             break;
         }
+
+        if(low > high){
+            fixIndice++;
+            low = 1;
+            high = nums.size() - 1;
+        }else if(nums[fixIndice] + nums[mid] > k){
+            high = mid - 1;
+        }else{
+            low = mid + 1;
+        }
+
     }
 
     if(house1 < house2){
