@@ -12,7 +12,7 @@ int main(){
     int counter = 0;
     while(consultas--){
         cin >> indexE >> indexD;
-        nowE = indexE - 1;
+        nowE = indexE - 1; //pois os index vao de 1 a n
         nowD = nowE + 1;
         counter = 0;
         while(true){
