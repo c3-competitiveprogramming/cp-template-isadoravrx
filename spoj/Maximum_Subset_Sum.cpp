@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <cmath>
 using namespace std;
 
 int main(){
@@ -11,16 +12,19 @@ int main(){
         cin >> n;
         
         vector<int>v;
+        int mn = 0;
         for(int i = 0; i < n; i++){
             int num;
             cin >> num;
+            mn = min(mn,num);
+            
             v.push_back(num);
         }
 
         int i = 0;
         int j = 1;
-        int sum = v[i];
-        int bestsum = sum;
+        int sum = v[0];
+        int bestsum = mn;
 
         while(true){
             if(j == n){
@@ -31,13 +35,20 @@ int main(){
                 sum += v[j];
                 j++;
             }else{
-                sum = sum - v[i];
+                
+                if(v[i] < 0){
+                    sum = sum + v[i];
+                }else{
+                    sum = sum - v[i];
+                }
+
                 i++;
+               
             }
 
-            if(sum > bestsum){
-                bestsum = sum;
-            }
+            
+            bestsum = max(bestsum,sum);
+            
         }
 
         cout << bestsum << endl;
