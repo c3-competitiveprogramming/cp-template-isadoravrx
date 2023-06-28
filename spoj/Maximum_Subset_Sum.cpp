@@ -1,56 +1,26 @@
 #include <iostream>
-#include <vector>
 #include <cmath>
 using namespace std;
 
-int main(){
-    int test;
-    cin >> test;
-
-    while(test--){
-        int n;
+typedef long long int ll;
+int main(int argc, char * argv[]){
+    int t; 
+    int n;
+    cin >> t;
+    while(t--){
         cin >> n;
-        
-        vector<int>v;
-        int mn = 0;
-        for(int i = 0; i < n; i++){
-            int num;
-            cin >> num;
-            mn = min(mn,num);
-            
-            v.push_back(num);
-        }
-
-        int i = 0;
-        int j = 1;
-        int sum = v[0];
-        int bestsum = mn;
-
-        while(true){
-            if(j == n){
-                break;
+        ll sum = 0;
+        ll best = 0;
+        while(n--){
+            int i;
+            cin >> i;
+            sum += i;
+            if(sum < 0){
+                sum = 0;
             }
-
-            if(sum + v[j] > bestsum){
-                sum += v[j];
-                j++;
-            }else{
-                
-                if(v[i] < 0){
-                    sum = sum + v[i];
-                }else{
-                    sum = sum - v[i];
-                }
-
-                i++;
-               
-            }
-
-            
-            bestsum = max(bestsum,sum);
+            best = max(sum,best);
             
         }
-
-        cout << bestsum << endl;
+        cout << best << endl;
     }
 }
