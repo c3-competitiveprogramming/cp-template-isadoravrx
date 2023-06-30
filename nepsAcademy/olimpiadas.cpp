@@ -9,8 +9,8 @@ int main(){
     
     vector<vector<int>>medalhas(paises);
     for(int i = 0; i < paises; i++){  //assim, o país 0,1,2... terao suas q de medalhas
-        medalhas[0] = i;
         medalhas[i].assign(3,0);//quantidade,depois o numero
+        medalhas[0][3] = i;// identidade do pais, lembrando que comeca de 0
     }
 
     for(int i = 0; i < modalidades; i++){
