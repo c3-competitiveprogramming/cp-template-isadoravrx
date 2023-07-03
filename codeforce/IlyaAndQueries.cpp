@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 using namespace std;
 
 int main(){
@@ -7,16 +8,13 @@ int main(){
     string caracters;
     int consultas;
     cin >> caracters >> consultas;
-    int indexE, indexD;
-    int nowE, nowD;
-    int counter = 0;
-    while(consultas--){
-        cin >> indexE >> indexD;
-        nowE = indexE - 1; //pois os index vao de 1 a n
-        nowD = nowE + 1;
-        counter = 0;
+
+    vector<int>nextIsEqual;
+
+    int nowE;
+    nowE = 0; 
         while(true){
-            if(nowD == indexD){
+            if(nowD == indexD){ //significa que literalmente o nowe está no nowD considerando que começamos a contar do 1
                 break;
             }
 
@@ -27,9 +25,7 @@ int main(){
             nowD++;
         }
 
-        cout << counter << endl;
 
-    }
 
     return 0;
 }
