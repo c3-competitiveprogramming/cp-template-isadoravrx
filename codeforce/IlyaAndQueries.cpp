@@ -10,22 +10,23 @@ int main(){
 
     vector<int>nextIsEqual;
 
-    int nowE = 0; 
-    
+    int i = 0; 
+    int sum = 0;
     while(true){
-        if(nowE == caracters.size() - 1){ //nao podemos olhar o prox do ultimo
-            nextIsEqual.push_back(0);
+        if(i == caracters.size() - 1){ //nao podemos olhar o prox do ultimo
+            nextIsEqual.push_back(sum);
             break;
         }
 
-        if(caracters[nowE] == caracters[nowE + 1]){
-            nextIsEqual.push_back(1);
+        if(caracters[i] == caracters[i + 1]){
+            nextIsEqual.push_back(sum);
+            sum++;
         }else{
-            nextIsEqual.push_back(0);
+            nextIsEqual.push_back(sum);
         }
         
-        nowE++;
-         
+        i++;
+        
     }
 
     int queries;
@@ -36,14 +37,9 @@ int main(){
         cin >> e >> d;
         e--;
         d--;
-        int sum = 0;
-        int point = e;
-        while(point != d){
-            sum += nextIsEqual[point];
-            point++;
-        }
-
-        cout << sum << endl;
+        
+        int answer = nextIsEqual[d] - nextIsEqual[e];
+        cout << answer << endl;
 
     }
 

@@ -1,25 +1,34 @@
 #include <iostream>
-#include <vector>
+#include <math.h>
 using namespace std;
 
 int main(){
-    int seixos, maxPedrasUmBolso;
+    int n, k;
+    cin >> n >> k;
 
-    cin >> seixos >> maxPedrasUmBolso;
+    long long sum1 = 0;
+    long long sum2 = 0;
+    int count = 0;
+    while(n--){
+        int w;
+        cin >> w;
+        if(sum1 == 0){
+            if(w <= k){
+                sum1 += w;
+            }else{  
+                sum1 += k;
+            }
+        }else if(sum2 == 0){
+            if(w <= k){
+                sum2 += w;
+            }else{  
+                sum2 += k;
+            }
+        }else{
+            count++;
+            sum1 = 0;
+            sum2 = 0;
+        }   
 
-    int maxpedrasdia = maxPedrasUmBolso * 2;
-    int num;
-    vector<int>pedras;
-    for(int i = 0; i < seixos; i++){
-        cin >> num;
-        pedras.push_back(num);
-    }
-
-    int dia = 0;
-    int index = 0;
-    while(true){
-        if(pedras[index] == ma){
-
-        }
     }
 }
