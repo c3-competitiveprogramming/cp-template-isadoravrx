@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <bitset>
 using namespace std;
 
 int main(){
@@ -12,29 +13,35 @@ int main(){
         cin >> value;
         pessoas.push_back(value);
     }
+    int qmortos = 0;
+    
+    bitset<1000000> bt(0);
+    int i = n - 1;
+    int j = i - 1;
+    while(true){
+        
+        if(j >= i){
+             j = i - 1;
+        }
 
-    for(int i = 0; i < pessoas.size(); i++){
-        for(int j = 0; j < pessoas.size(); j++){
-            if(i == j){//ele não pode matar ele mesmo
-                continue;
-            }
+        if(j < 0){
+            break;
+        }
 
-            if(pessoas[j] == -1){//a pessoa já morreu
-                continue;
-            }
 
-            if(i > j && j >= i - pessoas[i]){
-                pessoas[j] = -1;
+        if(j >= i - pessoas[i]){
+            if(bt[j] == 0){ //ou seja, se ela ainda estiver viva, mata
+                bt[j] = 1;
+                qmortos++;
             }
+            j--;
+        }else{
+            i--;
         }
     }
 
-    int alives = 0;
-    for(int i = 0; i < pessoas.size(); i++){
-        if(pessoas[i] != -1){
-            alives++;
-        }
-    }
+    int alives;
+    alives = n - qmortos;
 
     cout << alives << endl;
 }
