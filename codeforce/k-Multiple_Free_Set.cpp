@@ -33,6 +33,11 @@ int main(){
     int cont = 1;
     int bestcont = 1;
     while(true){
+        
+        if(j <= i){
+            j = i + 1;
+        }
+
         if(j == n){
             break;
         }
@@ -42,8 +47,7 @@ int main(){
             j++;
         }else{
             cont = 1;
-            i = j;
-            j++;
+            i++;
         }
 
         bestcont = max(cont,bestcont);
