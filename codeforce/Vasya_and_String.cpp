@@ -1,82 +1,55 @@
 #include <iostream>
+#include <vector>
 #include <cmath>
 using namespace std;
-int n, k;
-string s;
-int qpercorridas = 0;
-char bestletra;
-
-void trocandoletrasAntes(int besti, char bestletra){
-    
-    
-    if(besti != n - 1 && besti >= 0 && s[besti + 1] == bestletra){
-        if(s[besti] != bestletra && k > 0){
-            s[besti] = bestletra;
-            k--;
-            qpercorridas++;
-        }
-        
-        trocandoletrasAntes(besti-1,bestletra); 
-    }else{
-        return;
-    }
-    
-}
-
-void trocandoletrasDepois(int bestj, char bestletra){
-    
-    if(bestj < n && bestj > 0 && s[bestj - 1] == bestletra){
-        if(s[bestj] != bestletra && k > 0){
-            s[bestj] = bestletra;
-            k--;
-            qpercorridas++;
-        }
-
-        trocandoletrasAntes(bestj+1,bestletra); 
-    }else{
-        return;
-    }
-    
-}
 
 int main(){
-    
+    int n, k;
     cin >> n >> k;
-
-    int lenght = 1;
-    int bestlength = 1;
-
     
-    cin >> s;
+    vector<char>v;
+    for(int i = 0; i < n; i++){
+        char c;
+        cin >> c;
+        v.push_back(c);
+    }
 
-    int besti = 0;
-    int bestj = 0;
+    int conta = 0;
+    int contb = 0;
+    int i = 0;
+    int j = 0;
+    int bestcont = 0;
 
-    char lastchar = s[0];
-
-    for(int p = 1; p < n; p++){ //achando o comprimento da maior cadeia, onde ela comeca e onde ela termina
-
-        char i;
-        i = s[p];
+    while(true){
+        if(j == n){
+            break;
+        }
         
-        if(i == lastchar){
-            lenght++;
+        if(v[j] == 'a'){
+            conta++;
         }else{
-            lenght = 1;
+            contb++;
+        }
+        
+        if(conta <= k || contb <= k){
+            bestcont = max(bestcont, j - i + 1);
+            j++;
+        }else{
+            if(v[j] == 'a'){
+                conta--;
+            }else{
+                contb--;
+            }
+
+            if(v[i] == 'a'){
+                conta--;
+            }else{
+                contb--;
+            }
+            i++;
         }
 
-        if(lenght > bestlength){
-            bestlength = lenght;
-            bestj = p;
-            besti = bestj - lenght + 1;
-        }
+    }
 
-        lastchar = i;
-    }    
-
-    bestletra = s[bestj];
-    trocandoletrasAntes(besti - 1,bestletra);
-    trocandoletrasDepois(bestj + 1,bestletra);
-    
-    cout << bestlength + qpercorridas << endl;
+    cout << bestcont << endl;
 }
