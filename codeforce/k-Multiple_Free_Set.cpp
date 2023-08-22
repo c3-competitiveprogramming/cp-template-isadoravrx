@@ -1,20 +1,38 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <algorithm>
 using namespace std;
-int n, k;
-vector<int>v;
 
-bool isvalidate(int i , int j){
-    bool isok = true;
-    for(int l = i; l < j; l++ ){
-        if(v[l] * k == v[j]){
-            isok = false;
+vector<long long>a;
+long long n, k;
+vector<long long>v;
+
+
+bool bs(long long value){
+    int low = 0;
+    int high = a.size() - 1;
+    int mid = (low + high)/2;
+
+    while(true){
+        if(low > high){
             break;
         }
-    }
+        
+        if(a[mid] * k == value){
+            return false;
+        }
 
-    return isok;
+        if(a[mid] * k < value){
+            low = mid + 1;
+        }else{
+            high = mid - 1;
+        }
+    
+        mid = (low + high) /2;
+    }
+    
+    return true;
 }
 
 int main(){
@@ -23,36 +41,25 @@ int main(){
 
     
     for(int i = 0; i < n; i++){
-        int num;
+        long long num;
         cin >> num;
         v.push_back(num);
     }
-
+    
+    sort(v.begin(),v.end());
     int i = 0;
-    int j = 1;
-    int cont = 1;
-    int bestcont = 1;
     while(true){
         
-        if(j <= i){
-            j = i + 1;
-        }
-
-        if(j == n){
+        if(i == n){
             break;
         }
 
-        if(isvalidate(i,j)){
-            cont++;
-            j++;
-        }else{
-            cont = 1;
-            i++;
+        if(bs(v[i])){
+            a.push_back(v[i]);
         }
 
-        bestcont = max(cont,bestcont);
-
+        i++;
     }
 
-    cout << bestcont << endl;
+    cout << a.size() << endl;
 }
