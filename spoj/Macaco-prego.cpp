@@ -18,30 +18,22 @@ int main(){
         }
         
         int x,y,u,v;
-        int xans = 0,yans = 0,uans = 0,vans = 0;
-        int xmax = -10000, ymin = 10000 ,umin = 10000,vmax = -10000;
+        int xans = -10001, yans = 10001,uans = 10001,vans = -10001;
         for(int i = 0; i < n; i++){
             cin >> x >> y >> u >> v;
-            if(xmax < x && x < umin && vmax < y && y < ymin){
-                xans = x;
-                yans = y;
-            }if(xmax < u && u < umin && vmax < v &&   v < ymin){
-                uans = u;
-                vans = v;
-            }
-
-            xmax = max(xmax,x);
-            ymin = min(ymin,y);
-            umin = min(umin,u);
-            vmax = max(vmax,v);
+            
+            xans = max(xans,x);
+            yans = min(yans,y);
+            uans = min(uans,u);
+            vans = max(vans,v);
         }
         
         cout << "Teste " << t << endl;
         t++;
-        if(n == 1 || (xans != 0 && yans != 0 && uans != 0 && vans != 0)){
-            cout << xans << " " << yans << " " << uans << " " << vans << endl;
-        }else{
+        if( xans > uans || yans < vans){
             cout << "nenhum" << endl;
+        }else{
+            cout << xans << " " << yans << " " << uans << " " << vans << endl;
         }
         cont = 1;
     }
