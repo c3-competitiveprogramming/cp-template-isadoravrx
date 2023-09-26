@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 #include <vector>
 using namespace std;
 
@@ -15,6 +16,7 @@ int main(){
 
     int fl, fr, somador; //fronteira left...
     int op[m][n]; //a 4 posicao é pra quantas vezes ele foi utilizado
+    memset(op,0,sizeof(op));
     for(int i = 0; i < m; i++){ // recebendo as operações e colocando na matriz
         cin >> fl >> fr >> somador;
         fl--;
@@ -33,7 +35,7 @@ int main(){
         opinicial--;
         opfinal--;
         //talvez isso esteja lento, devo fazer o mesmo da matriz das operacoes?
-        for(int j = opinicial; j < opfinal; j++){
+        for(int j = opinicial; j <= opfinal; j++){
             freq_op[j]++;
         }
     }  
