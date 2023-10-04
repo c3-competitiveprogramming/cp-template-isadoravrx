@@ -17,13 +17,13 @@ int main(){
             v.push_back(num);
         }
         
-        int high = v[0];
-        int min = v[0];
-            
         sort(v.begin(), v.end());
-    
-        for(int i = 1; i < n; i++){
-            
+        
+        int maxmin = v[0];
+
+        for(int i = 1; i < v.size(); i++){
+            maxmin = max(maxmin,v[i] - v[i - 1]);
         }
-    }
+        cout << maxmin << endl;
+    }   
 }
