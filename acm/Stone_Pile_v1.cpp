@@ -14,7 +14,7 @@ void recursive(int i, int s){
     }
 
     recursive(i+1,s);
-    recursive(i+1,s + v[i + 1]);
+    recursive(i+1,s + v[i]);
 }
 
 int main(){
