@@ -2,20 +2,20 @@
 #include <vector>
 #include <algorithm>
 using namespace std;
-int k, n, a, b;
+long long k, n, a, b;
 
 
 int main(){
-    int q;
+    long long q;
     cin >> q;
 
     while(q--){
         cin >> k >> n >> a >> b;
         
-        int low = 0;
-        int high = n;
-        int mid = (low + high)/2;
-        int maxmin = -1;
+        long long low = 0;
+        long long high = n;
+        long long mid = (low + high)/2;
+        long long maxmin = -1;
         if((k - (n * a)) > 0){ //já achou a resposta
             cout << n << endl;
         }else{
@@ -25,8 +25,8 @@ int main(){
                         maxmin = max(maxmin, mid);
                         low = mid + 1;
                     }else{
-                        int resto = (k -(mid * a));
-                        int rodadasFaltam = n - mid;
+                        long long resto = (k -(mid * a));
+                        long long rodadasFaltam = n - mid;
                         if((resto - (rodadasFaltam * b))> 0){
                             maxmin = max(maxmin, mid);
                             low = mid + 1;
