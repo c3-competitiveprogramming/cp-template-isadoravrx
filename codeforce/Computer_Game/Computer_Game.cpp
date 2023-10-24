@@ -4,41 +4,6 @@
 using namespace std;
 int k, n, a, b;
 
-int validate(int mid){
-    int cont = 0;//qrodadas
-    int bateria = k;
-    int max = 0; //qvezesA
-
-    while(true){
-        if(cont == n){
-            return max;
-        }
-        if(max == mid){
-            break;
-        }
-        if(bateria  > a){
-            cont++;
-            bateria -= a;
-            max++;
-        }else{
-            break;
-        }
-    }
-
-    while(true){
-        if(cont == n){
-            return max;
-        }
-
-        bateria -= b;
-        if(bateria <= 0){
-            return -1;
-        }else{
-            cont++;
-        }
-    }
-}
-
 
 int main(){
     int q;
@@ -51,21 +16,26 @@ int main(){
         int high = n;
         int mid = (low + high)/2;
         int maxmin = -1;
-        if((k - (n * a)) > 0){
+        if((k - (n * a)) > 0){ //já achou a resposta
             cout << n << endl;
         }else{
             while(low <= high){
-                if((k -(mid * a)) > 0 && mid >= n){
-                    maxmin = max(maxmin, mid);
-                    low = mid + 1;
-                }else{
-                    int qrodadasA = validate(mid);
-                    if(qrodadasA != -1){
-                        maxmin = max(maxmin,qrodadasA);
+                if((k -(mid * a)) > 0){
+                    if(mid >= n){
+                        maxmin = max(maxmin, mid);
                         low = mid + 1;
                     }else{
-                        high = mid - 1;
+                        int resto = (k -(mid * a));
+                        int rodadasFaltam = n - mid;
+                        if((resto - (rodadasFaltam * b))> 0){
+                            maxmin = max(maxmin, mid);
+                            low = mid + 1;
+                        }else{
+                            high = mid - 1;
+                        }
                     }
+                }else{
+                    high = mid - 1;
                 }
 
                 mid = (low + high)/2;
