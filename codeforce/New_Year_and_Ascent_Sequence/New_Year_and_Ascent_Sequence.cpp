@@ -1,54 +1,45 @@
 #include <iostream>
-#include <vector>
 #include <algorithm>
+#include <bitset>
 using namespace std;
 int n;
-vector<vector<int>>v;
-vector<int>max;
-vector<bool>isAscedent;
-
-bool hasAscedent(int indv1,int indv2){
-    int low = 0;
-    int high = v[indv2].size() - 1;
-    int mid = (low + high)/2;
-
-    while(low <= high){
-        if(v[indv1][0] < v[indv2][mid]){
-            return true;
-        }
-        low = mid + 1;
-        mid = (low + high)/2;
-    }
-    return false;
-}
+bitset<100000>bt(0);
 
 int main(){
     cin >> n;
-    v.resize(n);
+    int lower[n];
+    int higher[n];
     for(int i  = 0; i < n; i++){
         int len;
         cin >> len;
-        int cont = 0;
         int last;
+        int mx = 0;
+        int mn = 1000000;
         for(int j = 0; j < len; j++){
             int num;
             cin >> num;
             if(j != 0){
                 if(last < num){
-
+                    bt[i] = 1;
                 }
             }
-            v[i].push_back(num);
+            mx = max(mx,num);
+            mn= min(mn,num);
             last = num;
         }
-        sort(v[i].begin(),v[i].end());
+        higher[i] = mx;
+        lower[i] = mn;
     }
 
-    int cont = 0;
+    long long cont = 0;
     for(int i = 0; i < n; i++){
+        if(bt[i] == 1){
+            cont += n;
+            continue;
+        }
         for(int j = 0; j < n; j++){
-            if(){
-
+            if(bt[j] == 1 || lower[i] < higher[j]) {
+                cont++;
             }
         }
     }
