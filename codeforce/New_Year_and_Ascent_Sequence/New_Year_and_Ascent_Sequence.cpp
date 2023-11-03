@@ -2,21 +2,21 @@
 #include <algorithm>
 #include <bitset>
 using namespace std;
-int n;
-bitset<100000>bt(0);
+long long n;
+bitset<100000>bt(0); //1 quando é asc
 
 int main(){
     cin >> n;
-    int lower[n];
-    int higher[n];
+    long long lower[n];
+    long long higher[n];
     for(int i  = 0; i < n; i++){
-        int len;
+        long long len;
         cin >> len;
-        int last;
-        int mx = 0;
-        int mn = 1000000;
+        long long last;
+        long long mx = 0;
+        long long mn = 1000000;
         for(int j = 0; j < len; j++){
-            int num;
+            long long num;
             cin >> num;
             if(j != 0){
                 if(last < num){
@@ -31,18 +31,18 @@ int main(){
         lower[i] = mn;
     }
 
-    long long cont = 0;
+    long long desc = 0;
     for(int i = 0; i < n; i++){
-        if(bt[i] == 1){
-            cont += n;
-            continue;
-        }
-        for(int j = 0; j < n; j++){
-            if(bt[j] == 1 || lower[i] < higher[j]) {
-                cont++;
+        if(bt[i] == 0){ //primeiro desc
+            for(int j = 0; j < n; j++){
+                if(bt[j] == 0){ //segundo desc tbm
+                    if(lower[i] >= higher[j]){ //ver se a combinacao deles tbm é no desc
+                        desc++;
+                    }
+                }
             }
         }
     }
 
-    cout << cont << endl;
+    cout << (n * n) - desc << endl;
 }
