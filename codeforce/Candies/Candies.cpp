@@ -19,34 +19,43 @@ bool validate(long long k){
         }
 
         if(temp >= 10){
-            temp = temp - (0,1 * temp);
+            temp = temp - (temp/10); //ela sempre come um valor inteiro
+        }                                   //decimal é com .
+    }
+
+    if(n % 2 == 0){
+        if(eat >= n/2){
+            return true;
+        }
+    }else{  //se a divisao não for exata, ele vai arredondar pra baixo
+        if(eat > n/2){
+            return true;
         }
     }
 
-    if(eat >= n/2){
-        return true;
-    }
-
     return false;
+
 }
 
 int main(){
     cin >> n;
 
     long long k;
-    long long low = 0;
-    long long high  = n - 1;
-    k = (low + high)/2;
+    long long low = 1;//tem que comer pelo menos 1
+    long long high  = n;
+    k = (long long)((low + high)/2);
 
+    long long ans = 1000000000000000000;
     while(low <= high){
         if(validate(k)){
-            high = k -1;
+            high = k - 1;
+            ans = min(ans,k);
         }else{
             low = k + 1;
         }
 
-        k = (low + high)/2;
+        k = (long long)((low + high)/2);
     }
 
-    cout << k << endl;
+    cout << ans << endl;
 }
