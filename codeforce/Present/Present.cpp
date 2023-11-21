@@ -1,18 +1,30 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
+#include <cstring>
 using namespace std;
 long long n, m, w;
-long long v[100000];
-
+long long v[100010];
 bool validate(long long mid){
-    long long sum = m * w;
-    for(long long i = 0; i < n; i++){
-        if(v[i] < mid){
-            sum -= mid - v[i];
-        }
-        if(sum < 0){
-            return false;
+    long long b[100010]; //array aux
+    memset(b,0,sizeof(b));
+
+    long long dias_usados = 0;
+    long long sum = 0;
+
+    for(int i = 0; i < n; i++){ //tenho que mudar o sum??
+        sum += b[i];
+        long long num = v[i] + sum;
+        if(num < mid){
+            if((mid - num) <= m - dias_usados){
+                sum += (mid - num);
+                if(i + w < n){
+                    b[i + w] += -(mid - num);
+                }
+                dias_usados += (mid - num);
+            }else{
+                return false;
+            }
         }
     }
     return true;
@@ -32,7 +44,7 @@ int main(){
     }
 
     long long low = mn;
-    long long high = mx + (m * w);
+    long long high = mn + m;
     long long mid = (low + high)/2;
 
     long long ans = 0;
