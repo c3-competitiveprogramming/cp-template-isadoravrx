@@ -13,7 +13,7 @@ int main(){
     vector<long long> higher;
 
     long long ans = 0;
-    int cont = 0;
+    int tempn = n;
     for(long long i  = 0; i < n; i++){
         long long len;
         cin >> len;
@@ -31,13 +31,10 @@ int main(){
                 if(last < num){
                     isascedente = true;
                     if(!entrou){
-                        ans += n + (n -1); //quando se é ascedente, pode formar essa quantidade de pares com eles
+                        ans += tempn + (tempn -1); //quando se é ascedente, pode formar essa quantidade de pares com eles
                         entrou = true;
-                        if(cont == 1){
-                            ans -= cont;
-                        }
+                        tempn--;
                     }
-                    cont++;
                 }
             }
 
