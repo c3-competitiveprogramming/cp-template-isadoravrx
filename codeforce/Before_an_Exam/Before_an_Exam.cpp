@@ -1,21 +1,53 @@
 #include <iostream>
-#include <vector>
 using namespace std;
-int d,sum;
-vector<int>mim;
-vector<int>max;
+
 int main(){
-
-    cin >> d >> sum;
     
+    int d, sumtime;
+    cin >> d >> sumtime;
+    
+    int minimos[d];
+    int maximos[d];
+    
+    int summin = 0;
+    int summax = 0;
     for(int i = 0; i < d; i++){
-        int minimo, maximo;
-        cin >> minimo >> maximo;
-        min.push_back(minimo);
-        max.push_back(maximo);
+        int mn, mx;
+        cin >> mn >> mx;
+        summin += mn;
+        summax += mx;
+        minimos[i] = mn;
+        maximos[i] = mx;
+    }
+    
+    if(summin > sumtime){
+        cout << "NO";
+    }else if(summin == sumtime){
+        cout << "YES" << endl;
+        for(int i = 0; i < d; i++){
+            cout << minimos[i] << " ";
+        }
+    }else{
+        if(sumtime <= summax){
+            cout << "YES" << endl;
+            int dif = sumtime - summin;
+            for(int i = 0; i < d; i++){
+                if(dif > 0){
+                    if(maximos[i] - minimos[i] <= dif){
+                        dif -= (maximos[i] - minimos[i]);
+                        cout << maximos[i] << " ";
+                    }else{
+                        cout << minimos[i] + dif << " ";
+                        dif = 0;
+                    }
+                }else{
+                    cout << minimos[i] << " ";
+                }
+            }
+        }else{
+            cout << "NO";
+        }    
     }
 
-    for(int i = 0; i < n; i++){
-        verify(min[i],max[i]);
-    }
+    cout << endl;
 }
