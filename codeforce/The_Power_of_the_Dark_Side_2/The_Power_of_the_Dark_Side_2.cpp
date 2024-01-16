@@ -6,38 +6,42 @@ using namespace std;
 int main(){
     long long n;
     cin >> n;
-    
-    vector<vector<long long>>v(n);
+
+    vector<long long>sum;
+    vector<long long>two_smallest;
+
     for(long long i = 0; i < n; i++){
         long long a,b,c;
         cin >> a >> b >> c;
-        v[i].push_back(a);
-        v[i].push_back(b);
-        v[i].push_back(c);
-        v[i].push_back(a + b + c);
-        sort(v[i].begin(), v[i].end());
-    }
+        sum.push_back(a+b+c);
 
-    
-    long long q = 0;
+        vector<long long> v = {a,b,c};
+        sort(v.begin(),v.end());
+        two_smallest.push_back(v[0] + v[1] + 2); // o +2 pra garantir que é maior nos dois parametros
+    }.
+
+
+    sort(two_smallest.begin(),two_smallest.end());
+
     for(long long i = 0; i < n; i++){
-        q = 0;
-        for(long long j = 0; j < n; j++){
-            if(j == i){
-                continue;
-            }
-            
-            if(v[i][3] >= v[j][0] + 1 + v[j][1] + 1){
-                q++;
-            }
+        long long ind = (upper_bound(two_smallest.begin(),two_smallest.end(),sum[i]) - two_smallest.begin());
 
+        long long ans = ind - 1;
+        if(ans < 0){
+            ans = 0;
+        }
+        if(ind >= n){
+            if(two_smallest[0] < sum[i]){
+                ans = n -1;
+            }else{
+                ans = 0;
+            }
         }
 
-
-        if(i == n - 1){
-            cout << q << endl;
+        if(i == n-1){
+            cout << ans << endl;
         }else{
-            cout << q << " ";
+            cout << ans << " ";
         }
     }
 }
