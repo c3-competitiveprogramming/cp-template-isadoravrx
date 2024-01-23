@@ -4,44 +4,42 @@
 using namespace std;
 
 int main(){
-    long long n;
+    int n;
     cin >> n;
 
     vector<long long>sum;
     vector<long long>two_smallest;
+    vector<bool>ganha_delemesmo;
 
-    for(long long i = 0; i < n; i++){
+    for(int i = 0; i < n; i++){
         long long a,b,c;
-        cin >> a >> b >> c;
+        scanf("%lld %lld %lld", &a, &b, &c);
         sum.push_back(a+b+c);
 
-        vector<long long> v = {a,b,c};
-        sort(v.begin(),v.end());
-        two_smallest.push_back(v[0] + v[1] + 2); // o +2 pra garantir que é maior nos dois parametros
-    }.
+        long long mx;
+        mx = max(a,b);
+        mx = max(mx,c);
+        two_smallest.push_back(a+b+c-mx); // o +2 pra garantir que é maior nos dois parametros
+
+        if(sum[i] >= (two_smallest[i] + 2)){
+            ganha_delemesmo.push_back(true);
+        }
+    }
 
 
     sort(two_smallest.begin(),two_smallest.end());
 
-    for(long long i = 0; i < n; i++){
-        long long ind = (upper_bound(two_smallest.begin(),two_smallest.end(),sum[i]) - two_smallest.begin());
+    for(int i = 0; i < n; i++){
+        int ind = (upper_bound(two_smallest.begin(),two_smallest.end(),sum[i] - 2) - two_smallest.begin());
 
-        long long ans = ind - 1;
-        if(ans < 0){
-            ans = 0;
-        }
-        if(ind >= n){
-            if(two_smallest[0] < sum[i]){
-                ans = n -1;
-            }else{
-                ans = 0;
-            }
+        if(ganha_delemesmo[i]){
+            ind--;
         }
 
         if(i == n-1){
-            cout << ans << endl;
-        }else{
-            cout << ans << " ";
+            printf("%d\n", ind);
+            return 0;
         }
+        printf("%d ", ind);
     }
 }
