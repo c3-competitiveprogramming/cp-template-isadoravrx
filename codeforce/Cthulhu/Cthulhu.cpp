@@ -29,18 +29,24 @@ int main(){
         adj[b].push_back(a);
     }
 
-   int cont = 0; 
-   for(int i = 1; i <= n; i++){
-        if(cont == 3){
-            cout << "FHTAGN!" << endl;
-            return 0;
-        }
-        if(!visited[i]){
+    
+    bool b = true;
+    for(int i = 1; i <= n; i++){
+        if(visited[i] != 1){
             dfs(i);
-            cont++;
+        }
+    }
+    for(int i = 1; i <= n;i++){
+        if(visited[i] != 1){
+            b = false;
+            break;
         }
     }
 
+    if(b && m == n){
+        cout << "FHTAGN!" << endl;
+        return 0;
+    }
     cout << "NO" << endl;
     
 }
