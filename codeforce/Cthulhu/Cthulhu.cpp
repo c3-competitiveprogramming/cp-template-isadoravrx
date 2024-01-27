@@ -12,8 +12,7 @@ void dfs(int v){
         if(visited[x] == 1){
             continue;
         }
-
-        visited[x] = 1;
+        dfs(x);
     }
 }
 
@@ -30,12 +29,8 @@ int main(){
     }
 
     
+    dfs(1);
     bool b = true;
-    for(int i = 1; i <= n; i++){
-        if(visited[i] != 1){
-            dfs(i);
-        }
-    }
     for(int i = 1; i <= n;i++){
         if(visited[i] != 1){
             b = false;
