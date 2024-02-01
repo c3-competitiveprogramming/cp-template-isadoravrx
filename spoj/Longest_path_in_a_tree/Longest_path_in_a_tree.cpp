@@ -6,7 +6,8 @@ using namespace std;
 
 vector<int>adj[1000000];
 int visited[1000000];
-int maxdist = 0;
+int maxdistv = 0;
+int maxdistvvertice = 1;
 
 void dfs(int v,int cont){
     visited[v] = 1;
@@ -18,6 +19,7 @@ void dfs(int v,int cont){
         }
     }
 }
+
 int main(){
     int n;
     cin >> n;
@@ -29,10 +31,9 @@ int main(){
         adj[b].push_back(a);
     }
 
-    for(int i = 1; i <= n ; i++){
-        dfs(i,0);
-        memset(visited,0,sizeof(visited));
+    while(visited[maxdistvvertice] != 1){
+        dfs(maxdistvvertice,0);
     }
-    
-    cout << maxdist << endl; 
+
+    cout << maxdistv << endl; 
 }
