@@ -21,7 +21,8 @@ int main(){
         }else{
             if(mp[a][1] < b){
                 mp[a][1] = b;
-            }
+            	mp[a][2] = i;	
+	    }
         }
     }
 
