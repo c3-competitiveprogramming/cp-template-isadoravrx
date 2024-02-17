@@ -1,91 +1,80 @@
 #include <iostream>
-#include <map>
-#include <deque>
+#include <vector>
+#include <algorithm>
 using namespace std;
-#define ll long long
 
 int main(){
-    ll n,m;
+    int n,m;
     cin >> n >> m;
-    
-    map<ll,ll[3]>mp;
-    for(int i = 1; i <= n ; i++){
-        ll a,b;
-        cin >> a >> b;
-        if(mp.find(b) == mp.end()){
-            mp[b][0] = a;
-            mp[b][1] = b;
-            mp[b][2] = i;
-        }else{
-            if(a < mp[b][0]){
-                mp[b][0] = a;//ini
-                mp[b][1] = b;//fim
-                mp[b][2] = i;//index
-            }
-        }
 
+    vector<vector<int>>v(n,vector<int>(3));
+    for(int i = 0; i < n; i++){
+        int a,b;
+        cin >> a >> b;
+        v[i] = {a,b,i+1};
     }
 
-    map<ll, ll[3]>::reverse_iterator it;
+    int func = 1;
 
-    ll cont = 0;
-    ll ini,fim;
-    deque<ll>v;
-    ll rep = 0;
+    sort(v.begin(), v.end());
+    vector<int>ans(n + 1);
+    int anssize = 0;
+    int cont = 0;
     
-    for(it = mp.rbegin(); it != mp.rend(); ++it){ //it vai do ultimo ao primeiro
-        if(cont >= m){
-            break;
+    for(int i = 0; i < n; i++){
+        int mxright;
+        int mxversao;
+        cont = 0;
+        int j;
+        for(j = i ; j < n; j++ ){
+            if(v[j][0] <= func){
+                if(v[j][1] >= func){
+                    if(cont == 0){
+                        mxright = v[j][1];
+                        mxversao = v[j][2];
+                    }else{
+                        if(mxright < v[j][1]){
+                            mxright = v[j][1];
+                            mxversao = v[j][2];
+                        }
+                    }
+                    cont = 1;
+
+                }
+            }else{
+                break;
+            }
         }
-        ll a = (*it).second[0];
-        ll b = (*it).second[1];
-        ll ind = (*it).second[2];
         
         if(cont == 0){
-            ini = a;
-            fim = b;
-            v.push_front(ind);
-            cont += (fim - ini) + 1;
-            continue;
-        }
-       
-        if(a > ini){
-            continue;
-        }else{
-            if(b >= fim - rep && a < ini){ //tem como subs o anterior e abrangir +numbers?
-                v.pop_front();
-                v.push_front(ind);
-                rep = fim - rep - b;
-                cont += ini - a;
-                ini = a;
-                fim = b;
-            }else{ //ent vamos ter que gastar msm
-                v.push_front(ind);
-                rep = b - ini +1;
-                ini = a;
-                fim = b;
-                if(rep < 0){
-                    rep = 0;
-                }
-                cont += b-a+1-rep;
-            }
+            break;
         }
 
+        i = j-1;
+        func = mxright + 1;
+
+        if(ans[mxversao] == 0){
+            ans[mxversao]++;
+            anssize++;
+        }
     }
-    
-    if(cont < m){
+
+    if(func <= m){
         cout << "NO" << endl;
         return 0;
     }
-
-    cout << "YES" << endl;
-    cout << v.size() << endl;
-    for(int i = 0; i < v.size(); i++){
-        if(i == v.size() - 1){
-            cout << v[i] << endl;
-            return 0;
-        }
     
-        cout << v[i] << " ";    
+    cout << "YES" << endl;
+    cout << anssize << endl;
+    cont = 0;
+    for(int i = 1; i <= n; i++){
+        if(ans[i] == 1){
+            if(cont != 0){
+                cout << " ";
+            }
+            cout << i;
+            cont = 1;
+        }
     }
+    cout << endl;
 }
