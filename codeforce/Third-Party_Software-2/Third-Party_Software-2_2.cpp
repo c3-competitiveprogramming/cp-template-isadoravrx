@@ -8,12 +8,12 @@ using namespace std;
 int main(){
     ll n,m;
     cin >> n >> m;
-    
-    map<int,ll[3]>mp;
-    for(int i = 1; i <= n; i++){
+
+    map<ll,ll[3]>mp;
+    for(ll i = 1; i <= n; i++){
         ll a,b;
         cin >> a >> b;
-        
+
         if(mp.find(a) == mp.end()){
             mp[a][0] = a;
             mp[a][1] = b;
@@ -21,8 +21,8 @@ int main(){
         }else{
             if(mp[a][1] < b){
                 mp[a][1] = b;
-            	mp[a][2] = i;	
-	    }
+                mp[a][2] = i;	
+            }
         }
     }
 
@@ -43,32 +43,40 @@ int main(){
             qnum = b-a + 1;
             continue;
         }
-        
+
         if(a < fim){
             if(b < fim){
                 continue;
             }else{
                 if(a <= ini + qrep){
                     ans.pop_back();
-                    qrep = a - (ini+qrep -1); 
+                    if(a - ans[ans.size()-1] > 0){
+                        qrep = 0;
+                    }else{
+                        qrep = ans[ans.size()-1] - a + 1;
+                    }
                 }else{
                     qrep = fim - a + 1;
                 }
-                
+
                 qnum += b - fim;
                 ini = a;
                 fim = b;
                 ans.push_back(ind);    
             }
         }else{
+            if(a == fim){
+                qrep = 1;
+            }else{
+                qrep = 0;
+            }
             ans.push_back(ind);
             qnum += b-a+1;
             ini = a;
             fim = b;
-            qrep = 0;
         }
     }
-    
+
     sort(ans.begin(), ans.end());
     if(qnum < m){
         cout << "NO" << endl;
@@ -77,12 +85,12 @@ int main(){
 
     cout << "YES" << endl;
     cout << ans.size() << endl;
-    for(int i = 0; i < ans.size(); i++){
+    for(ll i = 0; i < ans.size(); i++){
         if(i == ans.size() - 1){
             cout << ans[i] << endl;
             return 0;
         }
-    
+
         cout << ans[i] << " ";    
     }
 
