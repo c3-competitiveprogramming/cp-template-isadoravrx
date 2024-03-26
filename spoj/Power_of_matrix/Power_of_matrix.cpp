@@ -25,7 +25,7 @@ int  main(){
 
     while(t--){
         cin >> m >> n;
-        
+    
         vector<vector<long long> >mat(m,vector<long long>(m));
         vector<vector<long long> >ans(m,vector<long long>(m));
         for(long long i = 0; i < m; i++){
