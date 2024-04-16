@@ -1,53 +1,60 @@
 #include <iostream>
-#include <vector>
+typedef long long ll;
 using namespace std;
 
+ll gcd(ll a, ll b){
+    if(b == 0){
+        return a;
+    }
+
+    return gcd(b,a%b);
+}
+
 int main(){
-    int n;
-    cin >> n;
+    ll n,m,q;
+    cin >> n >> m >> q;
 
-    vector<int>v(n);
-    for(int i = 0; i < n; i++){
-        cin >> v[i];
-    }
+    ll g = gcd(n,m);
 
-    int i = 0;
-    int j = v.size() - 1;   
-    long long saldo = 0;
-    int donosaldo = 0;
+    while(q--){
+        ll sx,sy,ex,ey;
+        cin >> sx >> sy >> ex >> ey;
 
-    while(i <= j){
-        if(i == j){
-            j++;
-            break;
-        }
 
-        if(saldo > 0){
-            if(donosaldo == 0){
-                if(v[i] <= saldo){
-                    i++;
-                }else{
-                    v[i] = v[i] - saldo;
-                }
+        ll qgruposn = n/g;
+        ll qgruposm = m/g;
+
+
+        ey--;        
+        sy--; //pra ir de 0 a n-1
+
+        if(sx == 1 && ex == 1){
+            if(sy /qgruposn == ey/qgruposn){
+                cout << "YES" << endl;
             }else{
-                if(v[j] <= saldo){
-                    j--;
-                }else{
-                    v[j] = v[j] - saldo;
-                }
+                cout << "NO" << endl;
             }
-        }
+        }else if(sx == 1 && ex == 2){
+            if(sy/qgruposn == ey/qgruposm){
+                cout << "YES" << endl;
+            }else{
+                cout << "NO" << endl;
+            }
 
-        if(v[i] < v[j]){
-            saldo += v[j] - v[i];
-            donosaldo = 0;
-        }else if(v[j] < v[i] ){
-            saldo += v[i] - v[j];
-            donosaldo = 1;
+        }else if(sx == 2 && ex == 1){
+            if(sy/qgruposm == ey/qgruposn){
+                cout << "YES" << endl;
+            }else{
+                cout << "NO" << endl;
+            }
+
+        }else{
+            if(sy/qgruposm == ey/qgruposm){
+                cout << "YES" << endl;
+            }else{
+                cout << "NO" << endl;
+            }
+
         }
-        i++;
-        j--;
     }
-
-    cout << i+1 << " " << v.size() - j << endl;
 }
