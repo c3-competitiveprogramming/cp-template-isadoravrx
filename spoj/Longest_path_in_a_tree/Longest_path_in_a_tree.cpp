@@ -1,39 +1,68 @@
 #include <iostream>
 #include <vector>
+#include <deque>
 #include <cmath>
 #include <cstring>
 using namespace std;
 
-vector<int>adj[1000000];
-int visited[1000000];
-int maxdistv = 0;
-int maxdistvvertice = 1;
+void dfs(vector<int>adj[], int visited[], int dist[], int start){
+    visited[start] = 1;
+    deque<pair<int,int> >dq;
+    dq.push_front(make_pair(start,0));
 
-void dfs(int v,int cont){
-    visited[v] = 1;
-    maxdist = max(maxdist,cont);
+    while(!dq.empty()){
+        int no = dq.front().first;
+        int custo = dq.front().second;
 
-    for(int x : adj[v]){
-        if(visited[x] != 1){
-            dfs(x,cont+1);
+        dq.pop_front();
+
+        for(int x : adj[no]){
+            if(visited[x] != 1){
+                visited[x] = 1;
+                dq.push_front(make_pair(x, custo+1));
+                dist[x] = custo+1;
+            }
         }
     }
+    
 }
 
 int main(){
     int n;
     cin >> n;
 
+    vector<int>adj[100000];
+    int visited[100000];
+
+    int dist[100000];
+
+    int start;
     for(int i = 0; i < n-1; i++){
         int a,b;
         cin >> a >> b;
+        start = a;
         adj[a].push_back(b);
         adj[b].push_back(a);
     }
 
-    while(visited[maxdistvvertice] != 1){
-        dfs(maxdistvvertice,0);
+    dfs(adj,visited,dist, start);
+
+    int nodist = 0, maxdist = 0;
+    for(int i = 0; i < n; i++){
+        if(maxdist < dist[i]){
+            maxdist = dist[i];
+            nodist = i;
+        }
     }
 
-    cout << maxdistv << endl; 
+    memset(dist, 0, sizeof(dist));
+    memset(visited, 0, sizeof(visited));
+    dfs(adj,visited,dist, nodist);
+    
+    maxdist = 0;
+    for(int i = 0; i < n+1; i++){
+        maxdist = max(maxdist, dist[i]);
+    }
+
+    cout << maxdist << endl;
 }
