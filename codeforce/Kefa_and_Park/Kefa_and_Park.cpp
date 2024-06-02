@@ -1,52 +1,64 @@
 #include <iostream>
 #include <vector>
+#include <deque>
+#include <cstring>
 using namespace std;
-int visited[100002];
-int cat[100002];
-vector<int>adj[100002];
-int n, m;
-int cont = 0;
-
-void dfs(int v,int c){
-    visited[v] = 1;
-    
-    if(cat[v] == 1){
-        c++;
-    }else{
-        c = 0;
-    }
-    
-    if(c > m){
-        return;
-    }
-
-    if(adj[v].size() == 0 && v !=1){
-        cont++;
-    }
-
-    for(auto x : adj[v]){
-        if(visited[x] != 1){
-            dfs(x,c);
-        }
-    }
-}
+long long qpaths = 0;
+long long n,m;
 
 int main(){
-
     cin >> n >> m;
 
-    for(int i = 1; i <= n; i++){
-        int num;
+    vector<long long>v(n+1);
+    for(long long i = 1; i <= n; i++){
+        long long num;
         cin >> num;
-        cat[i] = num;
+        v[i] = num;
     }
-
-    for(int i = 0; i < n-1; i++){
-        int a,b;
+    vector<vector<long long> >adj(n+1);
+    for(long long i = 0; i < (n-1) ; i++){
+        long long a,b;
         cin >> a >> b;
         adj[a].push_back(b);
+        adj[b].push_back(a);
     }
 
-    dfs(1,0);
-    cout << cont << endl;
+    long long visited[100002] ;
+    memset(visited,0,sizeof(visited));
+
+    deque<pair<long long,long long> >dq;
+    dq.push_front(make_pair(1,0));
+
+    while(!dq.empty()){
+        long long no = dq[0].first;
+        long long cont = dq[0].second;
+
+        dq.erase(dq.begin());
+
+        visited[no] = 1;
+        if(v[no] == 0){
+            cont = 0;
+        }else{
+            cont++;
+        }
+        if(adj[no].size() == 1 &&  no != 1 && cont <= m){
+            qpaths++;
+            continue;
+        }
+
+        if(cont > m){
+            continue;
+        }
+
+        for(auto x : adj[no]){
+            if(visited[x] == 0){
+                dq.push_front(make_pair(x,cont));
+            }
+        }
+    }
+
+
+
+
+    cout << qpaths << endl;
 }
