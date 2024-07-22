@@ -1,59 +1,87 @@
 #include <iostream>
-#include <string>
 #include <map>
-#include <algorithm>
+#include <string>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
-bool todosMaiorIgual(vector<int>&v1, vector<int>&v2, string s1){
+bool isdominatedfunc(string s1, string s2){
     
-    for(int i = 0; i < s1.size(); i++){
-        if(v2[s1[i] - 'a'] < v1[s1[i] - 'a']){
+    int i = 0;
+    int j = 0;
+    while(i < s1.size() && j < s2.size()){
+        if(s2[j] == s1[i]){
+            i++;
+            j++;
+        }else if(s2[j] > s1[i]){
             return false;
+        }else{
+            j++;
         }
     }
 
-    return true;
+    if(i == s1.size()){
+        return true;
+    }
+
+    return false;
 }
 
+bool comp(string s1, string s2){
+    if(s1.size() > s2.size()){
+        return false;
+    }else if(s1.size() < s2.size()){
+        return true;
+    }else{
+        int i = 0;
+        int j = 0;
+
+        while(i < s1.size()){
+            if(s1[i] > s2[j]){
+                return false;
+            }
+            if(s1[i] < s2[j]){
+                return true;
+            }
+
+            i++;
+            j++;
+        }
+    }
+
+
+}
 
 int main(){
     string s;
-    vector<string>v;
-    map<string,vector<int> >mp;
-    
+    vector<string> v;
+    map<string,string> mp;
+
+    map<string,bool>isdominant;
     while(cin >> s){
-        v.push_back(s);
-        vector<int>alf(26);
-
         string temp = s;
-        for(int j = 0; j < temp.size(); j++){
-            alf[temp[j] - 'a']++;
-        }
-
-        mp[temp] = alf;
+        sort(temp.begin(), temp.end());
+        mp[temp] = s;
+        isdominant[temp] = true;
+        v.push_back(temp);
     }
+    sort(v.begin(), v.end(),comp);
 
-    vector<string>ans;
+    map<string,string>ans;
     for(int i = 0; i < v.size(); i++){
-        bool b = true;
-        for(int j = 0; j < v.size(); j++){
-            if(i == j || v[i].size() > v[j].size()){
-                continue;
-            }
-            if(todosMaiorIgual(mp[v[i]], mp[v[j]], v[i])){
-                b = false;
-                break; 
+        for(int j = i+1; j < v.size(); j++){
+            if(isdominatedfunc(v[i], v[j])){
+                isdominant[v[i]] = false;
+                break;
             }
         }
 
-        if(b){
-            ans.push_back(v[i]);
+        if(isdominant[v[i]]){
+            ans[mp[v[i]]] = mp[v[i]];
         }
     }
-    
-    sort(ans.begin(), ans.end());
+
     for(auto it : ans){
-        cout << it << endl;
+        cout << it.first << endl;
     }
 }
