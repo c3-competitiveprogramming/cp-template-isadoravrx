@@ -3,32 +3,7 @@
 #include <deque>
 #include <cstring>
 using namespace std;
-int dist[1000002];
-int nodistante = 0 , distno= 0;
-
-void dfs(vector<vector<int> > &adj, int start, int cont){
-    deque<pair<int,int> >dq;
-    dq.push_front(make_pair(start,cont));
-
-    while(!dq.empty()){
-        int no = dq.front().first;
-        int cost = dq.front().second;
-
-        dq.erase(dq.begin());
-        for(auto x : adj[no]){
-            if(dist[x] == -1){
-                dist[x] = cost + 1;
-                dq.push_front(make_pair(x,dist[x]));
-
-                if(dist[x] > distno){
-                    nodistante = x;
-                    distno = dist[x];
-                }
-            }
-        }
-    }
-   
-}
+int visited[1000002] = {0};
 
 
 int main(){
@@ -42,15 +17,58 @@ int main(){
         scanf("%d %d", &a, &b);
         adj[a].push_back(b);
         adj[b].push_back(a);
-        dist[i] = -1;
     }
+
+    int bestcont = 0;
+    int nodistante = 0;
+    int start = 1;
+
+    vector<pair<int,int> >v;
+    v.push_back(make_pair(start,0));
+
+    while(!v.empty()){
+        int no = v.back().first;
+        int cont = v.back().second;
+        visited[no] = 1;
+        v.pop_back();
+
+        for(auto x : adj[no]){
+            if(visited[x] == 0){
+                 v.push_back(make_pair(x,cont+1));
+            }
+        }
+
+        if(cont > bestcont){
+            bestcont = cont;
+            nodistante = no;
+        }
+
+    } 
+
+    bestcont = 0;
+    start = nodistante;
+    v.push_back(make_pair(start,0));
+
+    while(!v.empty()){
+        int no = v.back().first;
+        int cont = v.back().second;
+        visited[no] = 2;
+        v.pop_back();
+
+        for(auto x : adj[no]){
+            if(visited[x] == 1){
+                 v.push_back(make_pair(x,cont+1));
+            }
+        }
+
+        if(cont > bestcont){
+            bestcont = cont;
+            nodistante = no;
+        }
+
+    }       
     
-    dist[n] = -1;
-    dfs(adj, 1, 0);
+    
+    printf("%d\n", bestcont);
 
-    memset(dist,-1,sizeof(dist));
-    distno = 0;
-    dfs(adj,nodistante , 0);
-
-    printf("%d\n", distno);
 }
