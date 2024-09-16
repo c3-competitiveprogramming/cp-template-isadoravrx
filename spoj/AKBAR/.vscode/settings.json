@@ -2,6 +2,6 @@
     "files.associations": {
         "vector": "cpp",
         "map": "cpp",
-        "set": "cpp"
+        "deque": "cpp"
     }
 }

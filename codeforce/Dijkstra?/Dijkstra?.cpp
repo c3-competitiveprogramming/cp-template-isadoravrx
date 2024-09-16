@@ -2,36 +2,26 @@
 #include <vector>
 #include <cstring>
 #include <set>
-#include <map>
 typedef long long ll;
 using namespace std;
-ll dist[100002];
 ll n,m;
-vector<ll>ans;
-ll mindist = 100000000000000000;
 
-void djk(vector<set<pair<ll,ll> > >&adj, ll start){
-    set<pair<pair<ll,ll> , vector<ll> > >st;
-    st.insert(make_pair(make_pair(0,start),ans));
+
+void djk(vector<vector<pair<ll,ll> > >&adj, ll start,  vector<ll>&parents, vector<ll>&dist){
+    set<pair<ll,ll> >st;
+    st.insert(make_pair(0,start));
     dist[start] = 0;
 
     while(!st.empty()){
-        ll no = (*st.begin()).first.second;
-        ll cost = (*st.begin()).first.first;
-        vector<ll>temp = (*st.begin()).second;
-
-        if(no == n && cost < mindist){
-            ans = temp;
-            mindist = cost;
-        }
+        ll no = (*st.begin()).second;
+        ll cost = (*st.begin()).first;
 
         st.erase(st.begin());
         for(auto it : adj[no]){
-            if(it.second + cost < dist[it.first] || dist[it.first] == -1){
+            if(it.second + cost < dist[it.first]){
                 dist[it.first] = it.second + cost;
-                temp.push_back(it.first);
-                st.insert(make_pair(make_pair(dist[it.first], it.first),temp));
-                temp.pop_back();
+                parents[it.first] = no;
+                st.insert(make_pair(dist[it.first], it.first));
             }
         }
     }
@@ -40,47 +30,40 @@ void djk(vector<set<pair<ll,ll> > >&adj, ll start){
 
 int main(){
    
-    cin >> n >> m;
+    scanf("%lld %lld", &n,&m);
 
-    vector<set<pair<ll,ll> > >adj(n+1);
-    map<pair<ll,ll>,ll >mp;
+    vector<vector<pair<ll,ll> > >adj(n+1);
     for(ll i = 0; i < m; i++){
         ll a,b,c;
-        cin >> a >> b >> c;
-        if(a == b){
-            continue;
-        }
-
-        if(mp.find(make_pair(a,b)) == mp.end()){
-            adj[a].insert(make_pair(b,c));
-            adj[b].insert(make_pair(a,c));
-        }else{
-            if(mp[make_pair(a,b)] > c){
-                auto it = adj[a].find(make_pair(b,mp[make_pair(a,b)]));
-                adj[a].erase(it);
-
-                it = adj[b].find(make_pair(a,mp[make_pair(a,b)]));
-                adj[b].erase(it);
-            }
-        }
+        scanf("%lld %lld %lld", &a,&b,&c);
+        adj[a].push_back(make_pair(b,c));
+        adj[b].push_back(make_pair(a,c));
         
     }
 
-    memset(dist,-1,sizeof(dist));
-    djk(adj,1);
+    vector<ll>dist(n+1,1e18);
+    vector<ll>parents(n+1);
+    djk(adj,1, parents, dist);
 
-    if(ans.size() == 0){
-        cout << -1 << endl;
+    if(dist[n] == 1e18){
+        printf("-1\n");
         return 0;
     }
-    cout << 1 << " ";
-    for(ll i = 0; i < ans.size(); i++){
-        if(i != 0 ){
-            cout << " ";
+
+    ll no = n;
+    vector<ll>ans;
+    while(no != 0){
+        ans.push_back(no);
+        no = parents[no];
+    }
+
+    for(ll i = ans.size() - 1; i >= 0; i--){
+        if(i != ans.size()-1 ){
+             printf(" ");
         }
-        cout << ans[i];
+        printf("%lld", ans[i]);
     }  
 
-    cout << endl;
+    printf("\n");
 
 }
