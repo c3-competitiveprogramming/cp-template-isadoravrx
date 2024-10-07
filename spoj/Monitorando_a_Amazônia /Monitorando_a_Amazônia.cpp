@@ -1,11 +1,20 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <algorithm>
 #include <cmath>
 using namespace std;
 
 
-//INCOMPLETO
+void dfs( vector<vector<int> >&adj, vector<int> &visited, int no){
+    visited[no] = 1;
+
+    for(auto x : adj[no]){
+        if(visited[x] == 0){
+            dfs(adj, visited, x);
+        }
+    }
+}
 int main(){
     int n;
     
@@ -24,32 +33,51 @@ int main(){
         }
 
 
-        vector<vector<pair<int,pair<int,int>>>>dist(n);
+        vector<vector<pair<double, int> > >dist(n);
         for(int i = 0; i < n ;i++){
             int x1 = points[i].first;
             int y1 = points[i].second;
             for(int j = 0; j < n; j++){
-                int x2 = points[j].first;
-                int y2 = points[j].second;
+                if(i == j){
+                    continue;
+                }
+                double x2 = points[j].first;
+                double y2 = points[j].second;
 
-                int primeiro_quadrado = (x2-x1) * (x2-x1);
-                int segundo_quadrado = (y2-y1) * (y2-y1);
-                int distancia = sqrt(primeiro_quadrado + segundo_quadrado);
-                dist[i].push_back(make_pair(distancia,make_pair(x2,y2)));
+                double primeiro_quadrado = (x2-x1) * (x2-x1);
+                double segundo_quadrado = (y2-y1) * (y2-y1);
+                double distancia = sqrt(primeiro_quadrado + segundo_quadrado);
+                dist[i].push_back(make_pair(distancia,j));
+            }
+        }
+        vector<vector<int> >adj(n);
+        
+        for(int i = 0; i < n; i++){
+            sort(dist[i].begin(), dist[i].end());
+            if(dist[i].size() >= 1){
+                adj[i].push_back(dist[i][0].second);
+            }
+
+            if(dist[i].size() >=2){
+                adj[i].push_back(dist[i][1].second);
+            }
+        }
+        
+        vector<int>visited(n);
+        dfs(adj, visited, 0);
+
+        bool b = true;
+        for(int i = 0; i < n; i++){
+            if(visited[i] == 0){
+                b = false;
+                break;
             }
         }
 
-        sort(dist.begin(),dist.end());
-        vector<vector<int>>adj(n+1);
-        
-        for(int i = 1; i <= n; i++){
-
-            adj[i].push_back(mp[make_pair(dist[i-1][0].first, dist[i-1][0].second)]);
-            adj[i].push_back(mp[make_pair(dist[i-1][1].first, dist[i-1][0].second)]);
+        if(b){
+            cout << "All stations are reachable." << endl;
+        }else{
+            cout << "There are stations that are unreachable." << endl;
         }
-
-
-
-        //direcionado?
     }
 }

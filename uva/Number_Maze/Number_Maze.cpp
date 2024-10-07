@@ -20,25 +20,25 @@ void djk(vector<vector<ll> >&v, vector<vector<ll> >&dist){
         st.erase(st.begin());
 
         if(i != 0){
-            if(v[i-1][j] + cost < dist[i-1][j]){
+            if(v[i-1][j] + cost < dist[i-1][j]){ //cima
                 dist[i-1][j] = v[i-1][j] + cost;
                 st.insert(make_pair(dist[i-1][j],make_pair(i-1,j)));
             } 
         }
         if(i != n-1){
-            if(v[i+1][j] + cost < dist[i+1][j]){
+            if(v[i+1][j] + cost < dist[i+1][j]){//baixo
                 dist[i+1][j] = v[i+1][j] + cost;
                 st.insert(make_pair(dist[i+1][j],make_pair(i+1,j)));
             }
         }
         if(j != 0){
-            if(v[i][j-1] + cost < dist[i][j-1]){
+            if(v[i][j-1] + cost < dist[i][j-1]){//esq
                 dist[i][j-1] = v[i][j-1] + cost;
                 st.insert(make_pair(dist[i][j-1],make_pair(i,j-1)));
             }
         }
         if(j != m-1){
-            if(v[i][j+1] + cost < dist[i][j+1]){
+            if(v[i][j+1] + cost < dist[i][j+1]){//dir
                 dist[i][j+1] = v[i][j+1] + cost;
                 st.insert(make_pair(dist[i][j+1],make_pair(i,j+1)));
             }
@@ -63,7 +63,7 @@ int main(){
                 cin >> num;
 
                 v[i][j] = num;
-                dist[i][j] = 10000000000000000000; 
+                dist[i][j] = 1000000000000000000; //10e18
             }
         }
         djk(v, dist);
