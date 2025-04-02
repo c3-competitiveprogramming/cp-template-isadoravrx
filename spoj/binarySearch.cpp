@@ -5,7 +5,7 @@ vector<long>elements;
 
 int menorIndexRepetidos(int mid){
 
-    if(elements[mid-1] < elements[mid]){
+    if(elements[mid-1] < elements[mid] || mid == 0){
         return mid;
     }
 
@@ -17,8 +17,8 @@ int binarysearch(long element){
     int high = elements.size() - 1;
     int mid = (low + high) / 2;
     while(low <= high){
-        if(elements[mid] == element){ //achou
-            if(mid == 0){ //se é o primeiro, não tem como ter elemento repetido antes dele
+        if(elements[mid] == element){ 
+            if(mid == 0){ 
                 return mid;
             }
             int menorIndexSeForrepetido = menorIndexRepetidos(mid);

@@ -1,0 +1,19 @@
+{
+    "files.associations": {
+        "map": "cpp",
+        "set": "cpp",
+        "__assert": "cpp",
+        "__hash_table": "cpp",
+        "__split_buffer": "cpp",
+        "__tree": "cpp",
+        "atomic": "cpp",
+        "ios": "cpp",
+        "istream": "cpp",
+        "locale": "cpp",
+        "sstream": "cpp",
+        "string": "cpp",
+        "system_error": "cpp",
+        "unordered_map": "cpp",
+        "vector": "cpp"
+    }
+}
